@@ -1,0 +1,6 @@
+[submodule "api-gateway"]
+	path = api-gateway
+	url = https://github.com/flightlogteam/api-gateway
+[submodule "userservice"]
+	path = userservice
+	url = https://github.com/flightlogteam/userservice
