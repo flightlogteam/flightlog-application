@@ -6,6 +6,7 @@ services:
       - "61225:61225"
     build:
       context: ./api-gateway
+      target: build_base
     environment:
       - DATABASE_USERNAME=root
       - DATABASE_PASSWORD=my-secret-pw
@@ -18,6 +19,8 @@ services:
       - "database"
     links:
       - "database"
+    volumes:
+      - ./api-gateway/src:/src
 
   userservice:
     tty: true
@@ -26,6 +29,7 @@ services:
     links:
       - "database"
     build:
+      target: build_base
       context: ./userservice
     environment:
       - DATABASE_USERNAME=root
@@ -35,6 +39,8 @@ services:
       - DATABASE_DATABASE=flightloguser
     depends_on:
       - "database"
+    volumes:
+      - ./userservice/src:/src
   database:
     image: "mariadb:latest"
     restart: 'always'
