@@ -1,0 +1,48 @@
+version: "3.7"
+services:
+  api-gateway:
+    tty: true
+    ports:
+      - "61225:61225"
+    build:
+      context: ./api-gateway
+    environment:
+      - DATABASE_USERNAME=root
+      - DATABASE_PASSWORD=my-secret-pw
+      - DATABASE_HOSTNAME=database
+      - DATABASE_PORT=3306
+      - DATABASE_DATABASE=flightloguser
+      - USERSERVICE_URL=userservice
+    depends_on:
+      - "userservice"
+      - "database"
+    links:
+      - "database"
+
+  userservice:
+    tty: true
+    ports:
+      - "61226:61226"
+    links:
+      - "database"
+    build:
+      context: ./userservice
+    environment:
+      - DATABASE_USERNAME=root
+      - DATABASE_PASSWORD=my-secret-pw
+      - DATABASE_HOSTNAME=database
+      - DATABASE_PORT=3306
+      - DATABASE_DATABASE=flightloguser
+    depends_on:
+      - "database"
+  database:
+    image: "mariadb:latest"
+    restart: 'always'
+    ports:
+      - "3307:3306"
+
+    environment:
+      MYSQL_ROOT_PASSWORD: my-secret-pw
+      MYSQL_DATABASE: flightloguser
+      MYSQL_USER: flightlog
+      MYSQL_PASSWORD: my-secret-pw
