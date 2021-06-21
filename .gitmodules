@@ -7,3 +7,6 @@
 [submodule "flightlog-frontend"]
 	path = flightlog-frontend
 	url = https://github.com/flightlogteam/flightlog-frontend
+[submodule "flightlog-flights"]
+	path = flightlog-flights
+	url = git@github.com:flightlogteam/flightlog-flights.git
