@@ -4,3 +4,6 @@
 [submodule "userservice"]
 	path = userservice
 	url = https://github.com/flightlogteam/userservice
+[submodule "flightlog-frontend"]
+	path = flightlog-frontend
+	url = https://github.com/flightlogteam/flightlog-frontend

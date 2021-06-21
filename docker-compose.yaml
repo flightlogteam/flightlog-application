@@ -1,5 +1,16 @@
 version: "3.7"
 services:
+  frontend:
+    tty: true
+    user: vscode
+    build:
+      context: ./flightlog-frontend
+      target: dev
+    volumes:
+      - ./flightlog-frontend:/src
+      - /src/node_modules
+    ports:
+      - "8080:8080"
   api-gateway:
     tty: true
     ports:
@@ -21,7 +32,6 @@ services:
       - "database"
     volumes:
       - ./api-gateway/src:/src
-
   userservice:
     tty: true
     ports:
