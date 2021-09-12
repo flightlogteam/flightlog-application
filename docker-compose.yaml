@@ -24,12 +24,17 @@ services:
       - DATABASE_HOSTNAME=database
       - DATABASE_PORT=3306
       - DATABASE_DATABASE=flightloguser
-      - USERSERVICE_URL=userservice
+      - SERVICE_USERSERVICE_URL=userservice
+      - SERVICE_USERSERVICE_PORT=61226
+      - SERVICE_FLIGHTSERVICE_URL=flightservice
+      - SERVICE_FLIGHTSERVICE_PORT=61227
     depends_on:
       - "userservice"
       - "database"
     links:
       - "database"
+      - "userservice"
+      - "flightservice"
     volumes:
       - ./api-gateway/src:/src
   userservice:
@@ -57,6 +62,7 @@ services:
       - "61227:61227"
     links:
       - "database"
+      - "userservice"
     build:
       target: build_base
       context: ./flightlog-flights
@@ -66,8 +72,12 @@ services:
       - DATABASE_HOSTNAME=database
       - DATABASE_PORT=3306
       - DATABASE_DATABASE=flightlogflights
+      - SERVICE_USERSERVICE_URL=userservice
+      - SERVICE_USERSERVICE_PORT=61226
+      - SERVICE_MODE=development
     depends_on:
       - "database"
+      - "userservice"
     volumes:
       - ./flightlog-flights/src:/src
   database:
