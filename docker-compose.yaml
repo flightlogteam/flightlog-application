@@ -26,7 +26,7 @@ services:
       - DATABASE_DATABASE=flightloguser
       - SERVICE_USERSERVICE_URL=userservice
       - SERVICE_USERSERVICE_PORT=61226
-      - SERVICE_FLIGHTSERVICE_URL=flightservice
+      - SERVICE_FLIGHTSERVICE_URL=http://flightservice
       - SERVICE_FLIGHTSERVICE_PORT=61227
     depends_on:
       - "userservice"
@@ -81,11 +81,11 @@ services:
     volumes:
       - ./flightlog-flights/src:/src
   database:
-    image: "mariadb:latest"
+    build:
+      context: ./database
     restart: 'always'
     ports:
       - "3307:3306"
-
     environment:
       MYSQL_ROOT_PASSWORD: my-secret-pw
       MYSQL_DATABASE: flightloguser
