@@ -83,7 +83,7 @@ services:
   database:
     build:
       context: ./database
-    restart: 'always'
+    restart: "always"
     ports:
       - "3307:3306"
     environment:
@@ -91,3 +91,12 @@ services:
       MYSQL_DATABASE: flightloguser
       MYSQL_USER: flightlog
       MYSQL_PASSWORD: my-secret-pw
+
+  casdoor:
+    image: casbin/casdoor
+    depends_on:
+      - database
+    volumes:
+      - ./conf:/conf/
+    ports:
+      - "8000:8000"
