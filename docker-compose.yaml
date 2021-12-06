@@ -2,6 +2,7 @@ version: "3.9"
 services:
   frontend:
     tty: true
+    restart: "always"
     user: vscode
     build:
       context: ./flightlog-frontend
@@ -24,6 +25,7 @@ services:
       - DATABASE_HOSTNAME=database
       - DATABASE_PORT=3306
       - DATABASE_DATABASE=flightloguser
+      - AUTHENTICATION_PROVIDER=http://keycloak:8080/auth/realms/test
       - SERVICE_USERSERVICE_URL=userservice
       - SERVICE_USERSERVICE_PORT=61226
       - SERVICE_FLIGHTSERVICE_URL=http://flightservice
@@ -31,6 +33,7 @@ services:
     depends_on:
       - "userservice"
       - "database"
+      - "keycloak"
     links:
       - "database"
       - "userservice"
@@ -126,3 +129,12 @@ services:
       - ./keycloak/test.json:/tmp/test.json
     depends_on:
       - keycloak_database
+  nginx:
+    image: nginx
+    volumes:
+      - ./conf/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "8083:8083"
+      - "8084:8084"
+    depends_on:
+      - "api-gateway"
