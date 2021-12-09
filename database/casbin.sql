@@ -23,6 +23,8 @@ INSERT INTO casbin_rule (p_type, v0, v1, v2, v3, v4, v5) VALUES('p', 'default', 
 INSERT INTO casbin_rule (p_type, v0, v1, v2, v3, v4, v5) VALUES('p', 'default', '/api/Flights/location', 'POST', 'allow', '', '');
 INSERT INTO casbin_rule (p_type, v0, v1, v2, v3, v4, v5) VALUES('p', 'default', '/api/Flights/flight/*', 'GET', 'allow', '', '');
 INSERT INTO casbin_rule (p_type, v0, v1, v2, v3, v4, v5) VALUES('p', 'default', '/api/Flights/flight', 'POST', 'allow', '', '');
+INSERT INTO casbin_rule (p_type, v0, v1, v2, v3, v4, v5) VALUES('p', 'default', '/api/Flights/start', 'POST', 'allow', '', '');
+INSERT INTO casbin_rule (p_type, v0, v1, v2, v3, v4, v5) VALUES('p', 'default', '/api/Flights/start', 'PUT', 'allow', '', '');
+INSERT INTO casbin_rule (p_type, v0, v1, v2, v3, v4, v5) VALUES('p', 'default', '/api/Flights/start/{id}', 'DELETE', 'allow', '', '');
 INSERT INTO casbin_rule (p_type, v0, v1, v2, v3, v4, v5) VALUES('p', 'default', '/api/Flights/location', 'GET', 'allow', '', '');
 INSERT INTO casbin_rule (p_type, v0, v1, v2, v3, v4, v5) VALUES('p', 'default', '/api/Flights/flight', 'PUT', 'allow', '', '');
-
