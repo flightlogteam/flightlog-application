@@ -2,5 +2,5 @@
 
 if [[ $1 == 'frontend' ]]
 then
-  docker-compose up api-gateway keycloak flightservice userservice nginx
+  podman-compose up api-gateway keycloak flightservice userservice nginx
 fi
