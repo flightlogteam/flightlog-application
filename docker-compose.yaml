@@ -111,25 +111,14 @@ services:
       - "3308:3306"
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "--silent"]
-
   keycloak:
-    image: quay.io/keycloak/keycloak:latest
-    environment:
-      DB_VENDOR: mariadb
-      DB_ADDR: keycloak_database
-      DB_DATABASE: keycloak
-      DB_USER: keycloak
-      DB_PASSWORD: password
-      KEYCLOAK_USER: admin
-      KEYCLOAK_IMPORT: /tmp/test.json
-      KEYCLOAK_PASSWORD: admin
-      JGROUPS_DISCOVERY_PROTOCOL: JDBC_PING
+    build:
+      context: ./keycloak
     ports:
       - "8082:8080"
     volumes:
       - ./keycloak/test.json:/tmp/test.json
-    depends_on:
-      - keycloak_database
+      - ./keycloak/compose-start.sh:/opt/keycloak/bin/compose-start.sh
   nginx:
     image: nginx
     volumes:
