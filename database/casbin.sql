@@ -28,3 +28,6 @@ INSERT INTO casbin_rule (p_type, v0, v1, v2, v3, v4, v5) VALUES('p', 'default', 
 INSERT INTO casbin_rule (p_type, v0, v1, v2, v3, v4, v5) VALUES('p', 'default', '/api/Flights/start/{id}', 'DELETE', 'allow', '', '');
 INSERT INTO casbin_rule (p_type, v0, v1, v2, v3, v4, v5) VALUES('p', 'default', '/api/Flights/location', 'GET', 'allow', '', '');
 INSERT INTO casbin_rule (p_type, v0, v1, v2, v3, v4, v5) VALUES('p', 'default', '/api/Flights/flight', 'PUT', 'allow', '', '');
+INSERT INTO casbin_rule (p_type, v0, v1, v2, v3, v4, v5) VALUES('p', 'default', '/api/Users/device', 'PUT', 'allow', '', '');
+INSERT INTO casbin_rule (p_type, v0, v1, v2, v3, v4, v5) VALUES('p', 'default', '/api/Users/device', 'POST', 'allow', '', '');
+INSERT INTO casbin_rule (p_type, v0, v1, v2, v3, v4, v5) VALUES('p', 'default', '/api/Users/device/{uid}', 'POST', 'allow', '', '');

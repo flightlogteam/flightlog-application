@@ -1,0 +1,65 @@
+# Save the output of this file and use kubectl create -f to import
+# it into Kubernetes.
+#
+# Created with podman-4.0.2
+
+# NOTE: If you generated this yaml from an unprivileged and rootless podman container on an SELinux
+# enabled system, check the podman generate kube man page for steps to follow to ensure that your pod/container
+# has the right permissions to access the volumes added.
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2022-05-06T09:25:58Z"
+  labels:
+    app: flightlog-applicationdatabase1pod
+  name: flightlog-applicationdatabase1_pod
+spec:
+  ports:
+  - name: "3306"
+    nodePort: 31618
+    port: 3306
+    targetPort: 3306
+  selector:
+    app: flightlog-applicationdatabase1pod
+  type: NodePort
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: "2022-05-06T09:25:58Z"
+  labels:
+    app: flightlog-applicationdatabase1pod
+  name: flightlog-applicationdatabase1_pod
+spec:
+  containers:
+  - args:
+    - mariadbd
+    env:
+    - name: MYSQL_USER
+      value: flightlog
+    - name: MYSQL_PASSWORD
+      value: my-secret-pw
+    - name: MYSQL_ROOT_PASSWORD
+      value: my-secret-pw
+    - name: MYSQL_DATABASE
+      value: flightloguser
+    image: localhost/flightlog-application_database:latest
+    name: flightlog-applicationdatabase1
+    ports:
+    - containerPort: 3306
+      hostPort: 3307
+    securityContext:
+      capabilities:
+        drop:
+        - CAP_MKNOD
+        - CAP_NET_RAW
+        - CAP_AUDIT_WRITE
+    volumeMounts:
+    - mountPath: /var/lib/mysql
+      name: 4e9645181237dd1e45c6c21c7b53b087c453a6fdc30e586b79e201952a78f748-pvc
+  volumes:
+  - name: 4e9645181237dd1e45c6c21c7b53b087c453a6fdc30e586b79e201952a78f748-pvc
+    persistentVolumeClaim:
+      claimName: 4e9645181237dd1e45c6c21c7b53b087c453a6fdc30e586b79e201952a78f748
+
